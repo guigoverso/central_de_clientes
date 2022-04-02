@@ -4,7 +4,9 @@ import 'package:central_de_clientes/model/client_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({Key? key, required ClientService service}) : _service = service, super(key: key);
+
+  final ClientService _service;
 
   @override
   State<HomeView> createState() => _HomeViewState();
