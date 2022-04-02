@@ -1,4 +1,5 @@
 import 'package:central_de_clientes/core/app_theme/app_theme.dart';
+import 'package:central_de_clientes/view/home/home_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         colorScheme: appTheme,
       ),
-      home: const SizedBox(),
+      home: const HomeView(),
     );
   }
 }
