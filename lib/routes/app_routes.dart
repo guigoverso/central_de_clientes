@@ -9,7 +9,11 @@ import '../model/client_model.dart';
 
 class AppRoutes {
   final Map<String, WidgetBuilder> routes = {
-    RouteName.home: (context) => HomeView(service: AppInjector.get<ClientService>(context)),
-    RouteName.client: (context) => ClientView(client: ModalRoute.of(context)!.settings.arguments as ClientModel),
+    RouteName.home: (context) =>
+        HomeView(service: AppInjector.get<ClientService>(context)),
+    RouteName.client: (context) => ClientView(
+          service: AppInjector.get<ClientService>(context),
+          client: ModalRoute.of(context)!.settings.arguments as ClientModel,
+        ),
   };
 }
