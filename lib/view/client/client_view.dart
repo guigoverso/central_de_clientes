@@ -6,6 +6,8 @@ import 'package:central_de_clientes/shared/functions/show_snack_bar.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/widgets/client_info_card.dart';
 import 'package:central_de_clientes/shared/widgets/client_app_bar.dart';
+import 'package:central_de_clientes/shared/extensions/date_time_extensions.dart';
+import 'package:central_de_clientes/shared/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 
 class ClientView extends StatefulWidget {
@@ -152,7 +154,7 @@ class _ClientViewState extends State<ClientView> {
                         ClientInfoCard(
                           title: 'Informações Pessoais',
                           info: {
-                            Icons.cake: client.birthAt,
+                            Icons.cake: client.birthAt.parseGlobalDate.formatLocalDate,
                           },
                         ),
                       ],

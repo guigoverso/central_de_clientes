@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EditClientTextField extends StatelessWidget {
   const EditClientTextField({
@@ -10,6 +11,7 @@ class EditClientTextField extends StatelessWidget {
     this.removeContainer = false,
     this.readOnly = false,
     this.textColor,
+    this.inputFormatters,
   }) : super(key: key);
 
   final String hintText;
@@ -19,6 +21,7 @@ class EditClientTextField extends StatelessWidget {
   final bool removeContainer;
   final bool readOnly;
   final Color? textColor;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class EditClientTextField extends StatelessWidget {
               }
               return null;
             },
+            inputFormatters: inputFormatters,
             style: TextStyle(color: _textColor),
             decoration: InputDecoration(
               isDense: true,

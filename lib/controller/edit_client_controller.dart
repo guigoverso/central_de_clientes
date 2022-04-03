@@ -1,5 +1,7 @@
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
+import 'package:central_de_clientes/shared/extensions/date_time_extensions.dart';
+import 'package:central_de_clientes/shared/extensions/string_extensions.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/request_status/request_status_listener.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,18 +12,24 @@ class EditClientController {
   final RequestStatusListener editClientStatus =
       RequestStatusListener(defaultStatus: RequestStatus.completed);
 
-  ClientModel get client => _client;
-
   late final TextEditingController nameController;
   late final TextEditingController phoneController;
   late final TextEditingController emailController;
-  late final TextEditingController birthAtController;
+  late final ValueNotifier<DateTime> birthAt;
+
+  ClientModel get client => _client;
 
   EditClientController(this._client, this._service) {
     nameController = TextEditingController(text: _client.name);
     phoneController = TextEditingController(text: _client.phone);
     emailController = TextEditingController(text: _client.email);
-    birthAtController = TextEditingController(text: _client.birthAt);
+    birthAt = ValueNotifier<DateTime>(_client.birthAt.parseGlobalDate);
+  }
+
+  void updateBirthAt(DateTime? value) {
+    if(value != null) {
+      birthAt.value = value;
+    }
   }
 
   ClientModel editedClient() {
@@ -29,7 +37,7 @@ class EditClientController {
       name: nameController.text,
       phone: phoneController.text,
       email: emailController.text,
-      birthAt: birthAtController.text,
+      birthAt: birthAt.value.formatGlobalDate,
     );
   }
 
