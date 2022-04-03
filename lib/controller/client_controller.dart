@@ -31,8 +31,7 @@ class ClientController {
   }) async {
     deleteClientStatus.loading();
     try {
-      await Future.delayed(Duration(seconds: 5));
-      // await _service.deleteClient(_client.id);
+      await _service.deleteClient(_client.id);
       deleteClientStatus.completed();
       onSuccess();
     } catch(e) {

@@ -46,4 +46,17 @@ class HomeController {
       clientsStatus.error(e.toString());
     }
   }
+
+  void whenBackClientScreen({required ClientModel client, dynamic result}) {
+    if(result == null) return;
+    final position = _clients.indexOf(client);
+    if(result is ClientModel) {
+      _clients[position] = result;
+    }
+    if(result is bool && result) {
+      _clients.remove(client);
+    }
+    _sortClientsAlphabetically();
+  }
+
 }

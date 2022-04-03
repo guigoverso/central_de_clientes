@@ -1,4 +1,5 @@
 import 'package:central_de_clientes/model/client_model.dart';
+import 'package:central_de_clientes/shared/widgets/app_bar_background.dart';
 import 'package:flutter/material.dart';
 
 class ClientAppBar extends StatelessWidget {
@@ -44,10 +45,8 @@ class ClientAppBar extends StatelessWidget {
               color: theme.background,
               child: Stack(
                 children: [
-                  Container(
-                    height: appBarExpandedHeight / 2 +
-                        MediaQuery.of(context).padding.top,
-                    color: theme.primary,
+                  AppBarBackground(
+                    height:appBarExpandedHeight / 2 + MediaQuery.of(context).padding.top,
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -64,7 +63,7 @@ class ClientAppBar extends StatelessWidget {
                         width: circleSize,
                         height: circleSize,
                         alignment: Alignment.center,
-                        child: Text(client.name[0],
+                        child: Text(client.name[0].toUpperCase(),
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 32,

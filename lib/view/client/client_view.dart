@@ -1,11 +1,8 @@
 import 'package:central_de_clientes/controller/client_controller.dart';
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
-import 'package:central_de_clientes/routes/route_name.dart';
 import 'package:central_de_clientes/shared/functions/show_snack_bar.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
-import 'package:central_de_clientes/shared/request_status/request_status_builder.dart';
-import 'package:central_de_clientes/shared/request_status/request_status_listener.dart';
 import 'package:central_de_clientes/shared/widgets/client_info_card.dart';
 import 'package:central_de_clientes/view/client/widgets/client_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +71,10 @@ class _ClientViewState extends State<ClientView> {
 
   Future<void> _onDeleteClient(BuildContext context) async {
     await _controller.deleteClient(
-      onSuccess: () => Navigator.of(context)
-          .popUntil((route) => route.settings.name == RouteName.home),
+      onSuccess: () {
+        Navigator.of(context).pop();
+        Navigator.of(context).pop(true);
+      },
       onError: (message) {
         Navigator.of(context).pop();
         showSnackBar(context: context, message: message);
@@ -85,63 +84,72 @@ class _ClientViewState extends State<ClientView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.edit),
-      ),
-      body: CustomScrollView(
-        slivers: [
-          ClientAppBar(_controller.client,
-              onDelete: () => onDeleteDialog(context)),
-          SliverToBoxAdapter(
-            child: Visibility(
-              visible: false,
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.call),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.email),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.message),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+    return WillPopScope(
+      onWillPop: () async {
+        if(widget.client != _controller.client) {
+          Navigator.of(context).pop(_controller.client);
+          return true;
+        }
+        return true;
+      },
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.edit),
+        ),
+        body: CustomScrollView(
+          slivers: [
+            ClientAppBar(_controller.client,
+                onDelete: () => onDeleteDialog(context)),
+            SliverToBoxAdapter(
+              child: Visibility(
+                visible: false,
+                child: Row(
                   children: [
-                    ClientInfoCard(
-                      title: 'Informações de Contato',
-                      info: {
-                        Icons.call: _controller.client.phone,
-                        Icons.email: _controller.client.email,
-                      },
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.call),
                     ),
-                    const SizedBox(height: 16),
-                    ClientInfoCard(
-                      title: 'Informações Pessoais',
-                      info: {
-                        Icons.cake: _controller.client.birthAt,
-                      },
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.email),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.message),
                     ),
                   ],
                 ),
               ),
-            ]),
-          ),
-        ],
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ClientInfoCard(
+                        title: 'Informações de Contato',
+                        info: {
+                          Icons.call: _controller.client.phone,
+                          Icons.email: _controller.client.email,
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      ClientInfoCard(
+                        title: 'Informações Pessoais',
+                        info: {
+                          Icons.cake: _controller.client.birthAt,
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }

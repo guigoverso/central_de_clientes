@@ -1,6 +1,7 @@
 import 'package:central_de_clientes/controller/home_controller.dart';
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
+import 'package:central_de_clientes/routes/route_name.dart';
 import 'package:central_de_clientes/shared/request_status/request_status_builder.dart';
 import 'package:central_de_clientes/view/home/widgets/client_card.dart';
 import 'package:central_de_clientes/view/home/widgets/home_search_field.dart';
@@ -43,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                Text('Bem-vindo!',
+                Text('Carregado Clientes...',
                     style: TextStyle(color: Colors.white, fontSize: 36)),
                 SizedBox(height: 24),
                 CircularProgressIndicator(color: Colors.white),
@@ -74,31 +75,48 @@ class _HomeViewState extends State<HomeView> {
                         ValueListenableBuilder<Map<String, List<ClientModel>>>(
                       valueListenable: _controller.filteredClients,
                       builder: (context, filteredClients, _) {
-                        return ListView.builder(
-                          itemCount: filteredClients.keys.length,
-                          itemBuilder: (_, i) {
-                            final key = filteredClients.keys.toList()[i];
-                            final values = filteredClients[key];
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 4.0),
-                              child: StickyHeader(
-                                header: Padding(
-                                  padding: const EdgeInsets.only(bottom: 4),
-                                  child: Container(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    child: ListSeparator(key),
+                        return RefreshIndicator(
+                          onRefresh: _controller.fetchClients,
+                          child: ListView.builder(
+                            itemCount: filteredClients.keys.length,
+                            itemBuilder: (_, i) {
+                              final key = filteredClients.keys.toList()[i];
+                              final values = filteredClients[key];
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 4.0),
+                                child: StickyHeader(
+                                  header: Padding(
+                                    padding: const EdgeInsets.only(bottom: 4),
+                                    child: Container(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      child: ListSeparator(key),
+                                    ),
+                                  ),
+                                  content: Column(
+                                    children: values!
+                                        .map(
+                                          (e) => ClientCard(
+                                            client: e,
+                                            onTap: () async {
+                                              final result =
+                                                  await Navigator.of(context)
+                                                      .pushNamed(
+                                                          RouteName.client,
+                                                          arguments: e);
+                                              _controller.whenBackClientScreen(
+                                                  client: e, result: result);
+                                            },
+                                            position: values.indexOf(e),
+                                          ),
+                                        )
+                                        .toList(),
                                   ),
                                 ),
-                                content: Column(
-                                  children: values!
-                                      .map((e) => ClientCard(e, position: values.indexOf(e)))
-                                      .toList(),
-                                ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
