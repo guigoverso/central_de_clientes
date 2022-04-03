@@ -4,7 +4,7 @@ import 'package:central_de_clientes/model/client_model.dart';
 import 'package:central_de_clientes/shared/functions/show_snack_bar.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/widgets/client_info_card.dart';
-import 'package:central_de_clientes/view/client/widgets/client_app_bar.dart';
+import 'package:central_de_clientes/shared/widgets/client_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ClientView extends StatefulWidget {
@@ -144,6 +144,10 @@ class _ClientViewState extends State<ClientView> {
                           info: {
                             Icons.cake: client.birthAt,
                           },
+                        ),
+                        Container(
+                          color: Colors.red,
+                          height: 700,
                         ),
                       ],
                     ),

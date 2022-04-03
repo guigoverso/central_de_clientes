@@ -3,27 +3,33 @@ import 'package:central_de_clientes/shared/widgets/app_bar_background.dart';
 import 'package:flutter/material.dart';
 
 class ClientAppBar extends StatelessWidget {
-  const ClientAppBar(this.client, {Key? key, required this.onDelete}) : super(key: key);
+  const ClientAppBar(this.client, {Key? key, required this.onDelete, this.collapse = true}) : super(key: key);
 
   final ClientModel client;
-  final VoidCallback onDelete;
+  final VoidCallback? onDelete;
+  final bool collapse;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    const appBarExpandedHeight = 220.0;
+    const expandedHeight = 220.0;
+    final collapsedHeight = collapse ? kToolbarHeight : expandedHeight;
     const circleSize = 100.0;
-    final circlePaddingTop = appBarExpandedHeight / 2 -
+    final circlePaddingTop = expandedHeight / 2 -
         circleSize / 2 +
         MediaQuery.of(context).viewPadding.top;
     return SliverAppBar(
-      expandedHeight: appBarExpandedHeight,
+      expandedHeight: expandedHeight,
+      collapsedHeight: collapsedHeight,
       pinned: true,
       forceElevated: false,
       actions: [
-        IconButton(
-          onPressed: onDelete,
-          icon: const Icon(Icons.delete),
+        Visibility(
+          visible: onDelete != null,
+          child: IconButton(
+            onPressed: onDelete,
+            icon: const Icon(Icons.delete),
+          ),
         ),
       ],
       flexibleSpace: LayoutBuilder(builder: (context, constraints) {
@@ -46,13 +52,13 @@ class ClientAppBar extends StatelessWidget {
               child: Stack(
                 children: [
                   AppBarBackground(
-                    height:appBarExpandedHeight / 2 + MediaQuery.of(context).padding.top,
+                    height:expandedHeight / 2 + MediaQuery.of(context).padding.top,
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       color: Theme.of(context).colorScheme.background,
-                      height: appBarExpandedHeight / 2,
+                      height: expandedHeight / 2,
                     ),
                   ),
                   Padding(
