@@ -1,5 +1,6 @@
 import 'package:central_de_clientes/core/app_theme/app_theme.dart';
 import 'package:central_de_clientes/model/client_model.dart';
+import 'package:central_de_clientes/routes/route_name.dart';
 import 'package:flutter/material.dart';
 
 class ClientCard extends StatelessWidget {
@@ -20,7 +21,7 @@ class ClientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final _circleColor = position != null ? circleColor : Theme.of(context).primaryColor;
     return ListTile(
-      onTap: () {},
+      onTap: () => Navigator.of(context).pushNamed(RouteName.client, arguments: client),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
