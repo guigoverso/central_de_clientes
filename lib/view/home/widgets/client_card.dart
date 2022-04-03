@@ -27,9 +27,12 @@ class ClientCard extends StatelessWidget {
       ),
       contentPadding: const EdgeInsets.all(4),
       title: Text(client.name, style: const TextStyle(fontSize: 18)),
-      leading: CircleAvatar(
-        backgroundColor: _circleColor,
-        child: Text(client.name[0].toUpperCase(), style: TextStyle(color: Colors.white)),
+      leading: Hero(
+        tag: '${client.name}${client.id}',
+        child: CircleAvatar(
+          backgroundColor: _circleColor,
+          child: Text(client.name[0].toUpperCase(), style: TextStyle(color: Colors.white)),
+        ),
       ),
     );
   }

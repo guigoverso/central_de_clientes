@@ -75,23 +75,26 @@ class ClientAppBar extends StatelessWidget {
                     padding: EdgeInsets.only(top: circlePaddingTop),
                     child: Align(
                       alignment: Alignment.topCenter,
-                      child: Container(
-                        width: circleSize,
-                        height: circleSize,
-                        alignment: Alignment.center,
-                        child: customCircleContent ??
-                            Text(client.name[0].toUpperCase(),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w600)),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.background,
-                            width: 6,
+                      child: Hero(
+                        tag: '${client.name}${client.id}',
+                        child: Container(
+                          width: circleSize,
+                          height: circleSize,
+                          alignment: Alignment.center,
+                          child: customCircleContent ??
+                              Text(client.name[0].toUpperCase(),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w600)),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primary,
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.background,
+                              width: 6,
+                            ),
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                          borderRadius: BorderRadius.circular(100),
                         ),
                       ),
                     ),
