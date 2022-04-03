@@ -8,11 +8,12 @@ class ClientController {
   final ClientService _service;
   final RequestStatusListener deleteClientStatus = RequestStatusListener();
 
-  late ClientModel _client;
+  late final ValueNotifier<ClientModel> _clientListenable;
 
-  ClientModel get client => _client;
+  ValueNotifier<ClientModel> get listenable => _clientListenable;
+  ClientModel get client => _clientListenable.value;
 
-  ClientController(this._service, this._client);
+  ClientController(this._service, ClientModel client) : _clientListenable = ValueNotifier(client);
 
   Future<void> onUpdateClient({
     required Future<ClientModel?> Function() toUpdateClient,
@@ -20,7 +21,7 @@ class ClientController {
   }) async {
     final updatedClient = await toUpdateClient();
     if (updatedClient != null) {
-      _client = updatedClient;
+      _clientListenable.value = updatedClient;
       callback();
     }
   }
@@ -31,7 +32,7 @@ class ClientController {
   }) async {
     deleteClientStatus.loading();
     try {
-      await _service.deleteClient(_client.id);
+      await _service.deleteClient(client.id);
       deleteClientStatus.completed();
       onSuccess();
     } catch(e) {
