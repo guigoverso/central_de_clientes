@@ -8,17 +8,17 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     const bottomBorderRadius = 6.0;
+    const borderRadius = BorderRadius.only(
+    bottomLeft: Radius.circular(bottomBorderRadius),
+    bottomRight: Radius.circular(bottomBorderRadius),
+    );
     return Material(
       elevation: 2,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(bottomBorderRadius),
-          bottomRight: Radius.circular(bottomBorderRadius),
-        ),
-      ),
+      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
+          borderRadius: borderRadius,
           image: const DecorationImage(
             image: AssetImage('assets/images/home_appbar_wallpaper.jpg'),
             fit: BoxFit.cover,
