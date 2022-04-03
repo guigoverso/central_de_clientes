@@ -15,9 +15,8 @@ class AppInjector extends InheritedWidget {
     return result!;
   }
 
-  static T? get<T>(BuildContext context) {
-    final AppInjector? result = of(context);
-    if(result == null) return null;
+  static T get<T>(BuildContext context) {
+    final AppInjector result = of(context);
     return result.injectors.whereType<T>().toList().first;
   }
 

@@ -6,6 +6,7 @@ const appTheme = ColorScheme(
   secondary: Color(0xff4E82A9),
   onSecondary: Colors.white,
   background: Color(0xfff2f2f2),
+  // background: Colors.grey,
   onBackground: Color(0xff121212),
   brightness: Brightness.light,
   surface: Color(0xffdedede),
@@ -13,3 +14,9 @@ const appTheme = ColorScheme(
   error: Color(0xffff3333),
   onError: Colors.white,
 );
+
+const colorPallete = [
+  Color(0xff7AAED9),
+  Color(0xff6596BD),
+  Color(0xff4E82A9),
+];
