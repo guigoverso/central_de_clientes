@@ -48,14 +48,14 @@ class _RequestStatusBuilderState<T> extends State<RequestStatusBuilder<T>>
   @override
   void dispose() {
     _animationController.dispose();
-    widget.listener.notifier.dispose();
+    widget.listener.listenable.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<RequestStatus>(
-      valueListenable: widget.listener.notifier,
+      valueListenable: widget.listener.listenable,
       builder: (_, status, __) {
         Widget child;
         switch (status) {
@@ -81,6 +81,10 @@ class _RequestStatusBuilderState<T> extends State<RequestStatusBuilder<T>>
           case RequestStatus.none:
           default:
             child = widget.defaultWidget?.call(context) ?? const SizedBox();
+        }
+
+        if(!widget.animateTransition) {
+          return child;
         }
 
         if (oldChild == null) {

@@ -1,6 +1,7 @@
 import 'package:central_de_clientes/controller/client_controller.dart';
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
+import 'package:central_de_clientes/routes/route_name.dart';
 import 'package:central_de_clientes/shared/functions/show_snack_bar.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/widgets/client_info_card.dart';
@@ -34,7 +35,7 @@ class _ClientViewState extends State<ClientView> {
       context: context,
       barrierDismissible: false,
       builder: (context) => ValueListenableBuilder<RequestStatus>(
-        valueListenable: _controller.deleteClientStatus.notifier,
+        valueListenable: _controller.deleteClientStatus.listenable,
         builder: (_, status, __) {
           List<Widget> children;
           if (_controller.deleteClientStatus.isLoading) {
@@ -86,7 +87,7 @@ class _ClientViewState extends State<ClientView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(widget.client != _controller.client) {
+        if (widget.client != _controller.client) {
           Navigator.of(context).pop(_controller.client);
           return true;
         }
@@ -94,15 +95,24 @@ class _ClientViewState extends State<ClientView> {
       },
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () async {
+            final updatedClient = await Navigator.of(context)
+                .pushNamed(RouteName.editClient, arguments: _controller.client);
+            _controller.onUpdateClient(
+              updatedClient: updatedClient,
+              callback: () => showSnackBar(
+                context: context,
+                message: 'Cliente editado com sucesso',
+              ),
+            );
+          },
           child: const Icon(Icons.edit),
         ),
         body: ValueListenableBuilder<ClientModel>(
           valueListenable: _controller.listenable,
           builder: (context, client, _) => CustomScrollView(
             slivers: [
-              ClientAppBar(client,
-                  onDelete: () => onDeleteDialog(context)),
+              ClientAppBar(client, onDelete: () => onDeleteDialog(context)),
               SliverToBoxAdapter(
                 child: Visibility(
                   visible: false,
@@ -144,10 +154,6 @@ class _ClientViewState extends State<ClientView> {
                           info: {
                             Icons.cake: client.birthAt,
                           },
-                        ),
-                        Container(
-                          color: Colors.red,
-                          height: 700,
                         ),
                       ],
                     ),

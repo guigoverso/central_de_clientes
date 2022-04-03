@@ -2,7 +2,7 @@ import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:flutter/cupertino.dart';
 
 class RequestStatusListener<T> {
-  late final ValueNotifier<RequestStatus> notifier;
+  late final ValueNotifier<RequestStatus> listenable;
 
   String _errorMessage = '';
 
@@ -12,35 +12,35 @@ class RequestStatusListener<T> {
 
   T? get data => _data;
 
-  RequestStatus get value => notifier.value;
+  RequestStatus get value => listenable.value;
 
-  bool get isNone => notifier.value == RequestStatus.none;
+  bool get isNone => listenable.value == RequestStatus.none;
 
-  bool get isLoading => notifier.value == RequestStatus.loading;
+  bool get isLoading => listenable.value == RequestStatus.loading;
 
-  bool get isCompleted => notifier.value == RequestStatus.completed;
+  bool get isCompleted => listenable.value == RequestStatus.completed;
 
-  bool get isError => notifier.value == RequestStatus.error;
+  bool get isError => listenable.value == RequestStatus.error;
 
   RequestStatusListener(
       {RequestStatus? defaultStatus,
     T? data,
     String? errorMessage,
-  })  : notifier = ValueNotifier(defaultStatus ?? RequestStatus.none),
+  })  : listenable = ValueNotifier(defaultStatus ?? RequestStatus.none),
         _data = data,
         _errorMessage = errorMessage ?? '';
 
-  void none() => notifier.value = RequestStatus.none;
+  void none() => listenable.value = RequestStatus.none;
 
-  void loading() => notifier.value = RequestStatus.loading;
+  void loading() => listenable.value = RequestStatus.loading;
 
   void completed([T? data]) {
-    notifier.value = RequestStatus.completed;
+    listenable.value = RequestStatus.completed;
     _data = data;
   }
 
   void error(String errorMessage) {
-    notifier.value = RequestStatus.error;
+    listenable.value = RequestStatus.error;
     _errorMessage = errorMessage;
   }
 }

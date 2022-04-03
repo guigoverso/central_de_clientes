@@ -3,11 +3,20 @@ import 'package:central_de_clientes/shared/widgets/app_bar_background.dart';
 import 'package:flutter/material.dart';
 
 class ClientAppBar extends StatelessWidget {
-  const ClientAppBar(this.client, {Key? key, required this.onDelete, this.collapse = true}) : super(key: key);
+  const ClientAppBar(
+    this.client, {
+    Key? key,
+    this.onDelete,
+    this.collapse = true,
+    this.customTitleBuilder,
+    this.customCircleContent,
+  }) : super(key: key);
 
   final ClientModel client;
   final VoidCallback? onDelete;
   final bool collapse;
+  final Widget Function(BuildContext context, bool isCollapsed)? customTitleBuilder;
+  final Widget? customCircleContent;
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +44,14 @@ class ClientAppBar extends StatelessWidget {
       flexibleSpace: LayoutBuilder(builder: (context, constraints) {
         final appBarCollapsedHeight =
             MediaQuery.of(context).padding.top + kToolbarHeight;
-        final textColor = constraints.maxHeight == appBarCollapsedHeight
-            ? Colors.white
-            : theme.primary;
+        final isCollapsed = constraints.maxHeight == appBarCollapsedHeight;
+        final textColor = isCollapsed ? Colors.white : theme.primary;
         return FlexibleSpaceBar(
-          title: Text(
-            client.name,
-            style: TextStyle(color: textColor),
-          ),
+          title: customTitleBuilder?.call(context, isCollapsed) ??
+              Text(
+                client.name,
+                style: TextStyle(color: textColor),
+              ),
           centerTitle: true,
           stretchModes: const [StretchMode.blurBackground],
           background: Align(
@@ -52,7 +61,8 @@ class ClientAppBar extends StatelessWidget {
               child: Stack(
                 children: [
                   AppBarBackground(
-                    height:expandedHeight / 2 + MediaQuery.of(context).padding.top,
+                    height:
+                        expandedHeight / 2 + MediaQuery.of(context).padding.top,
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -69,11 +79,12 @@ class ClientAppBar extends StatelessWidget {
                         width: circleSize,
                         height: circleSize,
                         alignment: Alignment.center,
-                        child: Text(client.name[0].toUpperCase(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 32,
-                                fontWeight: FontWeight.w600)),
+                        child: customCircleContent ??
+                            Text(client.name[0].toUpperCase(),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w600)),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary,
                           border: Border.all(

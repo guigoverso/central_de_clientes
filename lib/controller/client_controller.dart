@@ -15,12 +15,11 @@ class ClientController {
 
   ClientController(this._service, ClientModel client) : _clientListenable = ValueNotifier(client);
 
-  Future<void> onUpdateClient({
-    required Future<ClientModel?> Function() toUpdateClient,
+  void onUpdateClient({
+    required dynamic updatedClient,
     required VoidCallback callback,
   }) async {
-    final updatedClient = await toUpdateClient();
-    if (updatedClient != null) {
+    if (updatedClient != null && updatedClient is ClientModel) {
       _clientListenable.value = updatedClient;
       callback();
     }
