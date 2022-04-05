@@ -81,12 +81,15 @@ class ClientAppBar extends StatelessWidget {
                           width: circleSize,
                           height: circleSize,
                           alignment: Alignment.center,
-                          child: customCircleContent ??
-                              Text(client.name[0].toUpperCase(),
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w600)),
+                          child: DefaultTextStyle(
+                            style: const TextStyle(),
+                            child: customCircleContent ??
+                                Text(client.name[0].toUpperCase(),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w600)),
+                          ),
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.primary,
                             border: Border.all(

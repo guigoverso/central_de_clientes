@@ -3,23 +3,27 @@ import 'package:central_de_clientes/model/client_model.dart';
 import 'package:flutter/material.dart';
 
 class ClientCard extends StatelessWidget {
-  const ClientCard({Key? key, required this.client, required this.onTap, this.position}) : super(key: key);
+  const ClientCard(
+      {Key? key, required this.client, required this.onTap, this.position})
+      : super(key: key);
 
   final ClientModel client;
   final int? position;
   final VoidCallback onTap;
 
   Color get circleColor {
-    if(position! < colorPallete.length) {
+    if (position! < colorPallete.length) {
       return colorPallete[position!];
     }
-    final colorPosition = position! - ((position! / colorPallete.length).truncate() * colorPallete.length);
+    final colorPosition = position! -
+        ((position! / colorPallete.length).truncate() * colorPallete.length);
     return colorPallete[colorPosition];
   }
 
   @override
   Widget build(BuildContext context) {
-    final _circleColor = position != null ? circleColor : Theme.of(context).primaryColor;
+    final _circleColor =
+        position != null ? circleColor : Theme.of(context).primaryColor;
     return ListTile(
       onTap: onTap,
       shape: RoundedRectangleBorder(
@@ -27,11 +31,19 @@ class ClientCard extends StatelessWidget {
       ),
       contentPadding: const EdgeInsets.all(4),
       title: Text(client.name, style: const TextStyle(fontSize: 18)),
-      leading: Hero(
-        tag: '${client.name}${client.id}',
-        child: CircleAvatar(
-          backgroundColor: _circleColor,
-          child: Text(client.name[0].toUpperCase(), style: TextStyle(color: Colors.white)),
+      leading: Material(
+        child: Hero(
+          tag: '${client.name}${client.id}',
+          child: CircleAvatar(
+            backgroundColor: _circleColor,
+            child: DefaultTextStyle(
+              style: const TextStyle(),
+              child: Text(
+                client.name[0].toUpperCase(),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
         ),
       ),
     );
