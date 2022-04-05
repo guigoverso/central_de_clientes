@@ -21,6 +21,10 @@ class SectionLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textFieldBorder = UnderlineInputBorder(
+      borderSide: BorderSide(
+          color: Colors.white.withOpacity(.7), width: 3.0),
+    );
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Center(
@@ -45,10 +49,9 @@ class SectionLayout extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: title,
                       hintStyle: TextStyle(color: Colors.white.withOpacity(.7)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.white.withOpacity(.7), width: 3.0),
-                      ),
+                      border: textFieldBorder,
+                      enabledBorder: textFieldBorder,
+                      focusedBorder: textFieldBorder
                     ),
                   ),
                 ),
