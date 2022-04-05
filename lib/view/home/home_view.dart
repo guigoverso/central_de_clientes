@@ -36,7 +36,8 @@ class _HomeViewState extends State<HomeView>
   }
 
   Future<void> toNewClientView(BuildContext context) async {
-    final result = await Navigator.of(context).fadePushNamed(RouteName.newClient);
+    final result =
+        await Navigator.of(context).fadePushNamed(RouteName.newClient);
     _controller.onCreateNewClient(result as ClientModel?);
   }
 
@@ -68,9 +69,7 @@ class _HomeViewState extends State<HomeView>
             children: [
               Column(
                 children: [
-                  HomeAppBar(
-                    totalClients: _controller.totalClients,
-                  ),
+                  HomeAppBar(totalClients: _controller.totalClients),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),

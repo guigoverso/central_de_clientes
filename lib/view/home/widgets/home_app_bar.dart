@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({Key? key, required this.totalClients}) : super(key: key);
 
-  final int totalClients;
+  final ValueNotifier<int> totalClients;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.normal),
               ),
               const SizedBox(height: 8),
-              Text('Total de Clientes: $totalClients')
+              ValueListenableBuilder(
+                valueListenable: totalClients,
+                builder: (context, totalClients, _) {
+                  return Text('Total de Clientes: $totalClients');
+                }
+              )
             ],
           ),
         ),

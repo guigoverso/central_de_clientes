@@ -7,16 +7,24 @@ class HomeController {
   final ClientService _service;
   final RequestStatusListener clientsStatus = RequestStatusListener<List<ClientModel>>();
 
-  List<ClientModel> _clients = [];
+  final ValueNotifier<List<ClientModel>> _clientsListenable = ValueNotifier([]);
+
+  List<ClientModel> get _clients => _clientsListenable.value;
+
   final ValueNotifier<Map<String, List<ClientModel>>> filteredClients =
       ValueNotifier({});
 
-  int get totalClients => _clients.length;
+  ValueNotifier<int> totalClients = ValueNotifier(0);
 
-  HomeController(this._service);
+  HomeController(this._service) {
+    _clientsListenable.addListener(() {
+      _sortClientsAlphabeticallyAndUpdateQtd();
+      totalClients.value = _clientsListenable.value.length;
+    });
+  }
 
 
-  void _sortClientsAlphabetically([List<ClientModel>? clientsList]) {
+  void _sortClientsAlphabeticallyAndUpdateQtd([List<ClientModel>? clientsList]) {
     final _clientsList = clientsList ?? _clients;
     final keys = _clientsList.map((e) => e.name[0].toLowerCase()).toSet();
     final sortedClients = {
@@ -24,23 +32,23 @@ class HomeController {
         k: _clientsList.where((e) => e.name[0].toLowerCase() == k).toList()
     };
     filteredClients.value = sortedClients;
+    totalClients.value = _clients.length;
   }
 
   void onSearch(String? value) {
     if(value == null) {
-      _sortClientsAlphabetically();
+      _sortClientsAlphabeticallyAndUpdateQtd();
       return;
     }
     final filteredClient = _clients.where((e) => e.name.toLowerCase().contains(value.toLowerCase())).toList();
-    _sortClientsAlphabetically(filteredClient);
+    _sortClientsAlphabeticallyAndUpdateQtd(filteredClient);
   }
 
   Future<void> fetchClients() async {
     clientsStatus.loading();
     try {
       final result = await _service.fetchClients();
-      _clients = result..sort((a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()));
-      _sortClientsAlphabetically();
+      _clientsListenable.value = result..sort((a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()));
       clientsStatus.completed(_clients);
     } catch (e) {
       clientsStatus.error(e.toString());
@@ -56,13 +64,13 @@ class HomeController {
     if(result is bool && result) {
       _clients.remove(client);
     }
-    _sortClientsAlphabetically();
+    _sortClientsAlphabeticallyAndUpdateQtd();
   }
 
   void onCreateNewClient(ClientModel? client) {
     if(client != null) {
       _clients.add(client);
-      _sortClientsAlphabetically();
+      _sortClientsAlphabeticallyAndUpdateQtd();
     }
   }
 
