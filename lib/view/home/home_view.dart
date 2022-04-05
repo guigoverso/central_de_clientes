@@ -3,6 +3,7 @@ import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
 import 'package:central_de_clientes/routes/app_routes.dart';
 import 'package:central_de_clientes/routes/route_name.dart';
+import 'package:central_de_clientes/shared/extensions/navigator_state_extensions.dart';
 import 'package:central_de_clientes/shared/request_status/request_status_builder.dart';
 import 'package:central_de_clientes/shared/widgets/app_bar_background.dart';
 import 'package:central_de_clientes/shared/widgets/button_height_animation.dart';
@@ -35,25 +36,8 @@ class _HomeViewState extends State<HomeView>
   }
 
   Future<void> toNewClientView(BuildContext context) async {
-    final page = PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          AppRoutes().routes[RouteName.newClient]!(context),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = 0.0;
-        const end = 1.0;
-        const curve = Curves.ease;
-
-        var tween = Tween<double>(begin: begin, end: end)
-            .chain(CurveTween(curve: curve));
-
-        return FadeTransition(
-          opacity: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-    final result = await Navigator.of(context).push(page);
-    _controller.onCreateNewClient(result);
+    final result = await Navigator.of(context).fadePushNamed(RouteName.newClient);
+    _controller.onCreateNewClient(result as ClientModel?);
   }
 
   @override

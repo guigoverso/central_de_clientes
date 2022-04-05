@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final httpService = HttpService();
     final appRoutes = AppRoutes();
 
@@ -34,4 +33,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

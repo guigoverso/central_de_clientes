@@ -47,7 +47,10 @@ class HomeClientList extends StatelessWidget {
                     children: values!
                         .map((e) => ClientCard(
                               client: e,
-                              onTap: () => _toClientDetailsScreen(context, e),
+                              onTap: () {
+                                _toClientDetailsScreen(context, e);
+                                FocusScope.of(context).unfocus();
+                              },
                               position: values.indexOf(e),
                             ))
                         .toList(),

@@ -3,6 +3,7 @@ import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
 import 'package:central_de_clientes/routes/route_name.dart';
 import 'package:central_de_clientes/shared/enum/action_button_type.dart';
+import 'package:central_de_clientes/shared/extensions/navigator_state_extensions.dart';
 import 'package:central_de_clientes/shared/functions/show_snack_bar.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/widgets/client_info_card.dart';
@@ -103,7 +104,7 @@ class _ClientViewState extends State<ClientView> {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             final updatedClient = await Navigator.of(context)
-                .pushNamed(RouteName.editClient, arguments: _controller.client);
+                .fadePushNamed(RouteName.editClient, arguments: _controller.client);
             _controller.onUpdateClient(
               updatedClient: updatedClient,
               callback: () => showSnackBar(
