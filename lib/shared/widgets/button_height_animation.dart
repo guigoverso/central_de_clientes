@@ -68,7 +68,7 @@ class _ButtonHeightAnimationState extends State<ButtonHeightAnimation>
         padding:
             _animationController.isAnimating || _animationController.isCompleted
                 ? EdgeInsets.zero
-                : const EdgeInsets.all(8.0),
+                : const EdgeInsets.all(16.0),
         child: Material(
           elevation: 5,
           shape:

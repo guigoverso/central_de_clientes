@@ -80,30 +80,38 @@ class _HomeViewState extends State<HomeView>
       onCompleted: (context, data) => GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          appBar: HomeAppBar(
-            totalClients: _controller.totalClients,
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: Align(
-            alignment: Alignment.bottomRight,
-            child: ButtonHeightAnimation(
-              child: const Icon(Icons.person_add, color: Colors.white),
-              onPressed: () => toNewClientView(context),
-            ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                HomeSearchField(onSearch: _controller.onSearch),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: HomeClientList(_controller),
+          body: Stack(
+            children: [
+              Column(
+                children: [
+                  HomeAppBar(
+                    totalClients: _controller.totalClients,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          HomeSearchField(onSearch: _controller.onSearch),
+                          const SizedBox(height: 16),
+                          Expanded(
+                            child: HomeClientList(_controller),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: ButtonHeightAnimation(
+                  child: const Icon(Icons.person_add, color: Colors.white),
+                  onPressed: () => toNewClientView(context),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
