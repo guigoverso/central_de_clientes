@@ -21,6 +21,6 @@ class AppRoutes {
       service: AppInjector.get<ClientService>(context),
       client: ModalRoute.of(context)!.settings.arguments as ClientModel,
     ),
-    RouteName.newClient: (context) => NewClientView(),
+    RouteName.newClient: (context) => NewClientView(AppInjector.get<ClientService>(context)),
   };
 }

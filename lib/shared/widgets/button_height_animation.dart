@@ -35,8 +35,9 @@ class _ButtonHeightAnimationState extends State<ButtonHeightAnimation>
         vsync: this,
         duration:
             widget.animationDuration ?? const Duration(milliseconds: 500));
-    _buttonSizeAnimation =
-        Tween(begin: 56.0, end: _maxHeight).animate(CurvedAnimation(parent: _animationController, curve: Curves.decelerate));
+    _buttonSizeAnimation = Tween(begin: 56.0, end: _maxHeight).animate(
+        CurvedAnimation(
+            parent: _animationController, curve: Curves.decelerate));
     _opacityAnimation = Tween(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -70,7 +71,8 @@ class _ButtonHeightAnimationState extends State<ButtonHeightAnimation>
                 : const EdgeInsets.all(8.0),
         child: Material(
           elevation: 5,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           child: Container(
             width: _buttonSizeAnimation.value,
             height: _buttonSizeAnimation.value,
@@ -84,12 +86,14 @@ class _ButtonHeightAnimationState extends State<ButtonHeightAnimation>
                   }
                 },
                 style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100)),
                 ),
               ),
             ),
             decoration: BoxDecoration(
-              color: widget.backgroundColor ?? Theme.of(context).colorScheme.secondary,
+              color: widget.backgroundColor ??
+                  Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(
                   _buttonSizeAnimation.value >= _maxHeight * .3 ? 0 : 100),
             ),

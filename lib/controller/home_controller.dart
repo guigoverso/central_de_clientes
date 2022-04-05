@@ -59,4 +59,11 @@ class HomeController {
     _sortClientsAlphabetically();
   }
 
+  void onCreateNewClient(ClientModel? client) {
+    if(client != null) {
+      _clients.add(client);
+      _sortClientsAlphabetically();
+    }
+  }
+
 }
