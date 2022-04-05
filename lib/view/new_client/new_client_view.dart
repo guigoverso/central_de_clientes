@@ -7,6 +7,7 @@ import 'package:central_de_clientes/view/new_client/widgets/birth_at_input.dart'
 import 'package:central_de_clientes/view/new_client/widgets/section_buttons_navigation.dart';
 import 'package:central_de_clientes/view/new_client/widgets/section_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 class NewClientView extends StatefulWidget {
@@ -48,7 +49,7 @@ class _NewClientViewState extends State<NewClientView> {
       ),
       SectionLayout(
         icon: Icons.email,
-        title: 'E-Mail',
+        title: 'e-Mail',
         textController: _controller.emailTextController,
         keyboardType: TextInputType.emailAddress,
       ),
@@ -74,7 +75,14 @@ class _NewClientViewState extends State<NewClientView> {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: RequestStatusBuilder(
+            animateTransition: false,
             listener: _controller.createClienteStatus,
+            onLoading: (context) {
+              FocusScope.of(context).unfocus();
+              return const Center(
+                child: CircularProgressIndicator(color: Colors.white),
+              );
+            },
             onCompleted: (context, _) => Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

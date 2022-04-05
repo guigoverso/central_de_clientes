@@ -25,6 +25,7 @@ class HomeController {
 
 
   void _sortClientsAlphabeticallyAndUpdateQtd([List<ClientModel>? clientsList]) {
+    _clientsListenable.value.sort((a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()));
     final _clientsList = clientsList ?? _clients;
     final keys = _clientsList.map((e) => e.name[0].toLowerCase()).toSet();
     final sortedClients = {
@@ -48,7 +49,7 @@ class HomeController {
     clientsStatus.loading();
     try {
       final result = await _service.fetchClients();
-      _clientsListenable.value = result..sort((a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()));
+      _clientsListenable.value = result;
       clientsStatus.completed(_clients);
     } catch (e) {
       clientsStatus.error(e.toString());
