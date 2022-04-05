@@ -140,7 +140,7 @@ class _ClientViewState extends State<ClientView> {
                       ClientActionButton(
                         icon: Icons.email,
                         onPressed: _controller.onActionButtonPressed,
-                        title: 'E-Mail',
+                        title: 'e-Mail',
                         type: ActionButtonType.email,
                       ),
                     ],
