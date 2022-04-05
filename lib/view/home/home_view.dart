@@ -4,6 +4,7 @@ import 'package:central_de_clientes/model/client_model.dart';
 import 'package:central_de_clientes/routes/app_routes.dart';
 import 'package:central_de_clientes/routes/route_name.dart';
 import 'package:central_de_clientes/shared/request_status/request_status_builder.dart';
+import 'package:central_de_clientes/shared/widgets/app_bar_background.dart';
 import 'package:central_de_clientes/shared/widgets/button_height_animation.dart';
 import 'package:central_de_clientes/view/home/widgets/home_client_list.dart';
 import 'package:central_de_clientes/view/home/widgets/home_search_field.dart';
@@ -60,9 +61,10 @@ class _HomeViewState extends State<HomeView>
     return RequestStatusBuilder<List<ClientModel?>>(
       listener: _controller.clientsStatus,
       onLoading: (_) => Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        body: SizedBox(
-          width: double.infinity,
+        body: AppBackgroundImage(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          imageOpacity: .7,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

@@ -2,6 +2,7 @@
 import 'package:central_de_clientes/controller/new_client_controller.dart';
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/shared/request_status/request_status_builder.dart';
+import 'package:central_de_clientes/shared/widgets/app_bar_background.dart';
 import 'package:central_de_clientes/view/new_client/widgets/birth_at_input.dart';
 import 'package:central_de_clientes/view/new_client/widgets/section_buttons_navigation.dart';
 import 'package:central_de_clientes/view/new_client/widgets/section_layout.dart';
@@ -58,40 +59,41 @@ class _NewClientViewState extends State<NewClientView> {
       ),
     ];
 
-    final backgroundColor = Theme.of(context).colorScheme.secondary;
-
     return Scaffold(
-      backgroundColor: backgroundColor,
       key: _scaffoldKey,
       appBar: AppBar(
         title:
             const Text('Novo Cliente', style: TextStyle(color: Colors.white)),
         centerTitle: true,
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: RequestStatusBuilder(
-          listener: _controller.createClienteStatus,
-          onCompleted: (context, _) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: _pageController,
-                  onPageChanged: (index) => _controller.index.value = index,
-                  children: sections,
+      extendBodyBehindAppBar: true,
+      body: AppBackgroundImage(
+        imageOpacity: .3,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: RequestStatusBuilder(
+            listener: _controller.createClienteStatus,
+            onCompleted: (context, _) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: PageView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: _pageController,
+                    onPageChanged: (index) => _controller.index.value = index,
+                    children: sections,
+                  ),
                 ),
-              ),
-              SectionButtonsNavigation(
-                controller: _controller,
-                pageController: _pageController,
-                sectionLength: sections.length,
-                scaffoldKey: _scaffoldKey,
-              ),
-            ],
+                SectionButtonsNavigation(
+                  controller: _controller,
+                  pageController: _pageController,
+                  sectionLength: sections.length,
+                  scaffoldKey: _scaffoldKey,
+                ),
+              ],
+            ),
           ),
         ),
       ),

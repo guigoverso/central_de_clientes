@@ -60,7 +60,7 @@ class ClientAppBar extends StatelessWidget {
               color: theme.background,
               child: Stack(
                 children: [
-                  AppBarBackground(
+                  AppBackgroundImage(
                     height:
                         expandedHeight / 2 + MediaQuery.of(context).padding.top,
                   ),
