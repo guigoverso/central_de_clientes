@@ -2,13 +2,16 @@ import 'package:central_de_clientes/controller/client_controller.dart';
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
 import 'package:central_de_clientes/routes/route_name.dart';
+import 'package:central_de_clientes/shared/enum/action_button_type.dart';
 import 'package:central_de_clientes/shared/functions/show_snack_bar.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/widgets/client_info_card.dart';
 import 'package:central_de_clientes/shared/widgets/client_app_bar.dart';
 import 'package:central_de_clientes/shared/extensions/date_time_extensions.dart';
 import 'package:central_de_clientes/shared/extensions/string_extensions.dart';
+import 'package:central_de_clientes/view/client/widgets/client_action_button.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ClientView extends StatefulWidget {
   const ClientView(
@@ -87,6 +90,7 @@ class _ClientViewState extends State<ClientView> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return WillPopScope(
       onWillPop: () async {
         if (widget.client != _controller.client) {
@@ -116,21 +120,28 @@ class _ClientViewState extends State<ClientView> {
             slivers: [
               ClientAppBar(client, onDelete: () => onDeleteDialog(context)),
               SliverToBoxAdapter(
-                child: Visibility(
-                  visible: false,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.call),
+                      ClientActionButton(
+                        type: ActionButtonType.call,
+                        icon: Icons.call,
+                        onPressed: _controller.onActionButtonPressed,
+                        title: 'Ligar',
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.email),
+                      ClientActionButton(
+                        icon: Icons.whatsapp,
+                        onPressed: _controller.onActionButtonPressed,
+                        title: 'WhatsApp',
+                        type: ActionButtonType.whatsapp,
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.message),
+                      ClientActionButton(
+                        icon: Icons.email,
+                        onPressed: _controller.onActionButtonPressed,
+                        title: 'E-Mail',
+                        type: ActionButtonType.email,
                       ),
                     ],
                   ),
@@ -154,7 +165,8 @@ class _ClientViewState extends State<ClientView> {
                         ClientInfoCard(
                           title: 'Informações Pessoais',
                           info: {
-                            Icons.cake: client.birthAt.parseGlobalDate.formatLocalDate,
+                            Icons.cake:
+                                client.birthAt.parseGlobalDate.formatLocalDate,
                           },
                         ),
                       ],
