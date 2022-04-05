@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         ClientService(httpService),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: appTheme,
         initialRoute: RouteName.home,

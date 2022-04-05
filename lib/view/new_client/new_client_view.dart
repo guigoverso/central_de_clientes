@@ -6,6 +6,7 @@ import 'package:central_de_clientes/view/new_client/widgets/birth_at_input.dart'
 import 'package:central_de_clientes/view/new_client/widgets/section_buttons_navigation.dart';
 import 'package:central_de_clientes/view/new_client/widgets/section_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NewClientView extends StatefulWidget {
   const NewClientView(this.service, {Key? key}) : super(key: key);
@@ -41,11 +42,14 @@ class _NewClientViewState extends State<NewClientView> {
         icon: Icons.call,
         title: 'Telefone',
         textController: _controller.phoneNumberTextController,
+        textInputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        keyboardType: TextInputType.number,
       ),
       SectionLayout(
         icon: Icons.email,
         title: 'E-Mail',
         textController: _controller.emailTextController,
+        keyboardType: TextInputType.emailAddress,
       ),
       SectionLayout(
         icon: Icons.cake,
