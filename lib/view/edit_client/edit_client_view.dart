@@ -2,6 +2,7 @@ import 'package:central_de_clientes/controller/edit_client_controller.dart';
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/shared/extensions/date_time_extensions.dart';
 import 'package:central_de_clientes/shared/functions/show_snack_bar.dart';
+import 'package:central_de_clientes/shared/masks/phone_mask.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/widgets/client_app_bar.dart';
 import 'package:central_de_clientes/shared/widgets/elevated_status_button.dart';
@@ -98,12 +99,15 @@ class _EditClientViewState extends State<EditClientView> {
                                       hintText: 'Telefone',
                                       controller: _controller.phoneController,
                                       readOnly: readOnly,
+                                      insidePrefixWidget: Text('+55 ', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+                                      inputType: TextInputType.phone,
                                     ),
                                     EditClientTextField(
                                       prefixIcon: Icons.mail,
                                       hintText: 'e-Mail',
                                       controller: _controller.emailController,
                                       readOnly: readOnly,
+                                      inputType: TextInputType.emailAddress,
                                     ),
                                   ],
                                 ),

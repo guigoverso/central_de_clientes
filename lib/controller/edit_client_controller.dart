@@ -2,8 +2,10 @@ import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
 import 'package:central_de_clientes/shared/extensions/date_time_extensions.dart';
 import 'package:central_de_clientes/shared/extensions/string_extensions.dart';
+import 'package:central_de_clientes/shared/masks/phone_mask.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/request_status/request_status_listener.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class EditClientController {
@@ -21,7 +23,7 @@ class EditClientController {
 
   EditClientController(this._client, this._service) {
     nameController = TextEditingController(text: _client.name);
-    phoneController = TextEditingController(text: _client.phone);
+    phoneController = MaskedTextController(text: PhoneMask.unmask(_client.phone), mask: '00 00000-0000');
     emailController = TextEditingController(text: _client.email);
     birthAt = ValueNotifier<DateTime>(_client.birthAt.parseGlobalDate);
   }
@@ -35,7 +37,7 @@ class EditClientController {
   ClientModel editedClient() {
     return _client.copyWith(
       name: nameController.text,
-      phone: phoneController.text,
+      phone: PhoneMask.unmask(phoneController.text),
       email: emailController.text,
       birthAt: birthAt.value.formatGlobalDate,
     );

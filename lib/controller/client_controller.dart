@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../shared/masks/phone_mask.dart';
+
 class ClientController {
   final ClientService _service;
   final RequestStatusListener deleteClientStatus = RequestStatusListener();
@@ -13,7 +15,9 @@ class ClientController {
   late final ValueNotifier<ClientModel> _clientListenable;
 
   ValueNotifier<ClientModel> get listenable => _clientListenable;
+
   ClientModel get client => _clientListenable.value;
+  String get clientPhone => PhoneMask.mask(client.phone);
 
   ClientController(this._service, ClientModel client) : _clientListenable = ValueNotifier(client);
 

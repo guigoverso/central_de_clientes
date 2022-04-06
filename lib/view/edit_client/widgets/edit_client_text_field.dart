@@ -8,6 +8,7 @@ class EditClientTextField extends StatelessWidget {
     required this.controller,
     this.inputType,
     this.prefixIcon,
+    this.insidePrefixWidget,
     this.removeContainer = false,
     this.readOnly = false,
     this.textColor,
@@ -18,6 +19,7 @@ class EditClientTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? inputType;
   final IconData? prefixIcon;
+  final Widget? insidePrefixWidget;
   final bool removeContainer;
   final bool readOnly;
   final Color? textColor;
@@ -47,9 +49,11 @@ class EditClientTextField extends StatelessWidget {
               }
               return null;
             },
+            keyboardType: inputType,
             inputFormatters: inputFormatters,
             style: TextStyle(color: _textColor),
             decoration: InputDecoration(
+              prefix: insidePrefixWidget,
               isDense: true,
               hintText: hintText,
               contentPadding: const EdgeInsets.only(bottom: 4),

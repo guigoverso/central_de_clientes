@@ -12,7 +12,6 @@ import 'package:central_de_clientes/shared/extensions/date_time_extensions.dart'
 import 'package:central_de_clientes/shared/extensions/string_extensions.dart';
 import 'package:central_de_clientes/view/client/widgets/client_action_button.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ClientView extends StatefulWidget {
   const ClientView(
@@ -158,7 +157,7 @@ class _ClientViewState extends State<ClientView> {
                         ClientInfoCard(
                           title: 'Informações de Contato',
                           info: {
-                            Icons.call: client.phone,
+                            Icons.call: _controller.clientPhone,
                             Icons.email: client.email,
                           },
                         ),
