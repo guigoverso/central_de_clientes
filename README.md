@@ -16,4 +16,4 @@ Aplicativo criado para o processo seletivo da 4Asset.
 * Deletar cliente.
 
 ## Apk de demonstração
-[Download](encurtador.com.br/iFQV9)
+[Download](https://drive.google.com/file/d/1ymPGjcetEAZJNUdSDwh6O7esI9wKxxWI/view?usp=sharing)
