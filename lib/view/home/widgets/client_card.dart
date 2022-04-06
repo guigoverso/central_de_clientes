@@ -31,17 +31,15 @@ class ClientCard extends StatelessWidget {
       ),
       contentPadding: const EdgeInsets.all(4),
       title: Text(client.name, style: const TextStyle(fontSize: 18)),
-      leading: Material(
-        child: Hero(
-          tag: '${client.name}${client.id}',
-          child: CircleAvatar(
-            backgroundColor: _circleColor,
-            child: DefaultTextStyle(
-              style: const TextStyle(),
-              child: Text(
-                client.name[0].toUpperCase(),
-                style: const TextStyle(color: Colors.white),
-              ),
+      leading: Hero(
+        tag: '${client.name}${client.id}',
+        child: CircleAvatar(
+          backgroundColor: _circleColor,
+          child: DefaultTextStyle(
+            style: const TextStyle(),
+            child: Text(
+              client.name[0].toUpperCase(),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),

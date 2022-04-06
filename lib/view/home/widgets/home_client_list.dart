@@ -29,6 +29,7 @@ class HomeClientList extends StatelessWidget {
         return RefreshIndicator(
           onRefresh: _controller.fetchClients,
           child: ListView.builder(
+            padding: EdgeInsets.zero,
             itemCount: filteredClients.keys.length,
             itemBuilder: (_, i) {
               final key = filteredClients.keys.toList()[i];
