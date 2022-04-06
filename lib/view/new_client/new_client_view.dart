@@ -51,7 +51,7 @@ class _NewClientViewState extends State<NewClientView> {
       ),
       SectionLayout(
         icon: Icons.email,
-        title: 'e-Mail',
+        title: 'E-mail',
         textController: _controller.emailTextController,
         keyboardType: TextInputType.emailAddress,
       ),

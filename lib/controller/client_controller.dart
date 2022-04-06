@@ -41,7 +41,7 @@ class ClientController {
         url = 'mailto:${client.email}';
         break;
       case ActionButtonType.whatsapp:
-        url = 'https://wa.me/${client.phone}';
+        url = 'https://wa.me/55${client.phone}';
         break;
     }
     if(await canLaunch(url)) {

@@ -106,7 +106,7 @@ class _EditClientViewState extends State<EditClientView> {
                                     ),
                                     EditClientTextField(
                                       prefixIcon: Icons.mail,
-                                      hintText: 'e-Mail',
+                                      hintText: 'E-mail',
                                       controller: _controller.emailController,
                                       readOnly: readOnly,
                                       keyboardType: TextInputType.emailAddress,
