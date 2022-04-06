@@ -39,13 +39,15 @@ class _NewClientViewState extends State<NewClientView> {
         icon: Icons.person,
         title: 'Nome',
         textController: _controller.nameTextController,
+        keyboardType: TextInputType.name,
       ),
       SectionLayout(
         icon: Icons.call,
         title: 'Telefone',
         textController: _controller.phoneNumberTextController,
         textInputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.phone,
+        insidePrefixWidget: const Text('+55 ', style: TextStyle(color: Colors.white)),
       ),
       SectionLayout(
         icon: Icons.email,

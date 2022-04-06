@@ -10,6 +10,7 @@ class SectionLayout extends StatelessWidget {
     this.customInput,
     this.textInputFormatters,
     this.keyboardType,
+    this.insidePrefixWidget,
   }) : super(key: key);
 
   final IconData icon;
@@ -18,6 +19,7 @@ class SectionLayout extends StatelessWidget {
   final List<TextInputFormatter>? textInputFormatters;
   final TextInputType? keyboardType;
   final Widget? customInput;
+  final Widget? insidePrefixWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class SectionLayout extends StatelessWidget {
       borderSide: BorderSide(
           color: Colors.white.withOpacity(.7), width: 3.0),
     );
+    final textCapitalization = keyboardType == TextInputType.name ? TextCapitalization.words : TextCapitalization.none;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Center(
@@ -41,17 +44,20 @@ class SectionLayout extends StatelessWidget {
                   child: TextField(
                     autofocus: true,
                     focusNode: FocusNode(),
+                    onChanged: (value) => print(value),
                     controller: textController,
                     style: const TextStyle(color: Colors.white, fontSize: 24),
                     textAlign: TextAlign.start,
                     inputFormatters: textInputFormatters,
                     keyboardType: keyboardType,
+                    textCapitalization: textCapitalization,
                     decoration: InputDecoration(
                       hintText: title,
                       hintStyle: TextStyle(color: Colors.white.withOpacity(.7)),
                       border: textFieldBorder,
                       enabledBorder: textFieldBorder,
-                      focusedBorder: textFieldBorder
+                      focusedBorder: textFieldBorder,
+                      prefix: insidePrefixWidget,
                     ),
                   ),
                 ),

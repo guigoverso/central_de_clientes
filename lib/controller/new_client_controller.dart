@@ -1,8 +1,10 @@
 import 'package:central_de_clientes/core/service/client_service.dart';
 import 'package:central_de_clientes/model/client_model.dart';
 import 'package:central_de_clientes/shared/extensions/date_time_extensions.dart';
+import 'package:central_de_clientes/shared/masks/phone_mask.dart';
 import 'package:central_de_clientes/shared/request_status/request_status.dart';
 import 'package:central_de_clientes/shared/request_status/request_status_listener.dart';
+import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/cupertino.dart';
 
 class NewClientController {
@@ -10,7 +12,7 @@ class NewClientController {
 
   final TextEditingController nameTextController = TextEditingController();
   final TextEditingController phoneNumberTextController =
-      TextEditingController();
+      MaskedTextController(mask: PhoneMask.pattern);
   final TextEditingController emailTextController = TextEditingController();
   final ValueNotifier<DateTime?> birthAtListenable = ValueNotifier(null);
 
@@ -54,7 +56,7 @@ class NewClientController {
     return ClientModel.new(
       name: nameTextController.text,
       email: emailTextController.text,
-      phone: phoneNumberTextController.text,
+      phone: PhoneMask.unmask(phoneNumberTextController.text),
       birthAt: birthAtListenable.value!.formatLocalDate,
     );
   }

@@ -35,7 +35,7 @@ class ClientController {
     String url = '';
     switch(type) {
       case ActionButtonType.call:
-        url = 'tel:${client.phone}';
+        url = 'tel:$clientPhone';
         break;
       case ActionButtonType.email:
         url = 'mailto:${client.email}';

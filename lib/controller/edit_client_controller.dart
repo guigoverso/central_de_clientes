@@ -23,7 +23,7 @@ class EditClientController {
 
   EditClientController(this._client, this._service) {
     nameController = TextEditingController(text: _client.name);
-    phoneController = MaskedTextController(text: PhoneMask.unmask(_client.phone), mask: '00 00000-0000');
+    phoneController = MaskedTextController(text: PhoneMask.unmask(_client.phone), mask: PhoneMask.pattern);
     emailController = TextEditingController(text: _client.email);
     birthAt = ValueNotifier<DateTime>(_client.birthAt.parseGlobalDate);
   }

@@ -6,7 +6,7 @@ class EditClientTextField extends StatelessWidget {
     Key? key,
     required this.hintText,
     required this.controller,
-    this.inputType,
+    this.keyboardType,
     this.prefixIcon,
     this.insidePrefixWidget,
     this.removeContainer = false,
@@ -17,7 +17,7 @@ class EditClientTextField extends StatelessWidget {
 
   final String hintText;
   final TextEditingController controller;
-  final TextInputType? inputType;
+  final TextInputType? keyboardType;
   final IconData? prefixIcon;
   final Widget? insidePrefixWidget;
   final bool removeContainer;
@@ -30,6 +30,7 @@ class EditClientTextField extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
     final _textColor = textColor ?? theme.secondary;
     const backgroundColor = Colors.white;
+    final textCapitalization = keyboardType == TextInputType.name ? TextCapitalization.words : TextCapitalization.none;
     final prefix = prefixIcon != null ? Padding(
       padding: const EdgeInsets.only(right: 16.0),
       child: Icon(prefixIcon, color: _textColor),
@@ -49,9 +50,10 @@ class EditClientTextField extends StatelessWidget {
               }
               return null;
             },
-            keyboardType: inputType,
+            keyboardType: keyboardType,
             inputFormatters: inputFormatters,
             style: TextStyle(color: _textColor),
+            textCapitalization: textCapitalization,
             decoration: InputDecoration(
               prefix: insidePrefixWidget,
               isDense: true,

@@ -55,6 +55,7 @@ class _EditClientViewState extends State<EditClientView> {
     final buttonSpace = buttonPadding.bottom + buttonSize.height;
     final buttonVisibility =
         MediaQuery.of(context).viewInsets.bottom != 0 ? false : true;
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -76,6 +77,7 @@ class _EditClientViewState extends State<EditClientView> {
                         hintText: 'Nome',
                         removeContainer: true,
                         textColor: isCollapsed ? Colors.white : null,
+                        keyboardType: TextInputType.name,
                       ),
                     ),
                   ),
@@ -100,14 +102,14 @@ class _EditClientViewState extends State<EditClientView> {
                                       controller: _controller.phoneController,
                                       readOnly: readOnly,
                                       insidePrefixWidget: Text('+55 ', style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
-                                      inputType: TextInputType.phone,
+                                      keyboardType: TextInputType.phone,
                                     ),
                                     EditClientTextField(
                                       prefixIcon: Icons.mail,
                                       hintText: 'e-Mail',
                                       controller: _controller.emailController,
                                       readOnly: readOnly,
-                                      inputType: TextInputType.emailAddress,
+                                      keyboardType: TextInputType.emailAddress,
                                     ),
                                   ],
                                 ),

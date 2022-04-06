@@ -1,6 +1,8 @@
 
 abstract class PhoneMask {
 
+  static String pattern = '00 00000-0000';
+
   static String mask(String value) {
     final unmasked = unmask(value);
     return _maskPhone(unmasked);
